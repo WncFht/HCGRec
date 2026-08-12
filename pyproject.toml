@@ -1,0 +1,142 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hcgrec"
+version = "0.1.0"
+description = "Research code for HCGRec: Hint-Conditioned Generative Recommendation with Semantic IDs"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.11,<3.14"
+keywords = [
+    "generative recommendation",
+    "sequential recommendation",
+    "semantic id",
+    "reinforcement learning",
+    "trl",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    # external training stack
+    "llamafactory==0.9.5",
+    # core runtime pins used by local training and evaluation code
+    "torch>=2.4.0",
+    "torchvision>=0.19.0",
+    "torchaudio>=2.4.0",
+    "transformers>=4.55.0,<=4.57.1,!=4.57.0",
+    "datasets>=2.16.0,<=4.0.0",
+    "accelerate>=1.3.0,<=1.11.0",
+    "peft>=0.18.0,<=0.18.1",
+    "trl>=0.18.0,<=0.24.0",
+    "torchdata>=0.10.0,<=0.11.0",
+    # model and tokenizer
+    "einops",
+    "numpy",
+    "pandas",
+    "scipy",
+    "sentencepiece",
+    "tiktoken",
+    "modelscope",
+    "hf-transfer",
+    "safetensors",
+    # python and training utils
+    "av>=10.0.0,<=16.0.0",
+    "fire",
+    "omegaconf",
+    "packaging",
+    "protobuf<7",
+    "pyyaml",
+    "pydantic",
+    "rich",
+    "scikit-learn",
+    "tqdm",
+    "wandb",
+    # optional service entrypoints kept in-repo
+    "fastapi",
+    "gradio>=4.38.0,<=5.50.0",
+    "matplotlib>=3.7.0",
+    "sse-starlette",
+    "tyro<0.9.0",
+    "uvicorn",
+]
+
+[tool.uv]
+package = true
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["hcgrec*", "index*", "rewards*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 119
+indent-width = 4
+
+[tool.ruff.lint]
+ignore = [
+    "C408",  # collection
+    "C901",  # complex
+    "E501",  # line too long
+    "E731",  # lambda function
+    "E741",  # ambiguous var name
+    "UP007", # no upgrade union
+    "UP045", # no upgrade optional
+    "D100",  # no doc public module
+    "D101",  # no doc public class
+    "D102",  # no doc public method
+    "D103",  # no doc public function
+    "D104",  # no doc public package
+    "D105",  # no doc magic method
+    "D107",  # no doc __init__
+]
+extend-select = [
+    "C",      # complexity
+    "E",      # error
+    "F",      # pyflakes
+    "I",      # isort
+    "W",      # warning
+    "UP",     # pyupgrade
+    "D",      # pydocstyle
+    "PT009",  # pytest assert
+    "RUF022", # sort __all__
+]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+known-first-party = ["hcgrec", "index", "rewards"]
+known-third-party = [
+    "accelerate",
+    "datasets",
+    "gradio",
+    "numpy",
+    "peft",
+    "torch",
+    "transformers",
+    "trl",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+skip-magic-trailing-comma = false
+line-ending = "auto"

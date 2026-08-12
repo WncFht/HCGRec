@@ -1,0 +1,50 @@
+### model
+model_name_or_path: Qwen/Qwen2.5-3B-Instruct
+trust_remote_code: true
+add_tokens_list: 'data/Games_grec_index_emb-qwen3-embedding-4B_rq4_cb256-256-256-256_dsGames/new_tokens.json'
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+deepspeed: examples/deepspeed/ds_z0_config.json
+
+### dataset
+dataset: Games_grec_index_emb_qwen3_embedding_4B_rq4_cb256_256_256_256_dsGames_train
+cutoff_len: 512
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+
+### output
+output_dir: saves/qwen2.5-3b/full/Games-grec-sft-qwen4B-4-256-dsz0
+logging_steps: 1
+save_steps: 0.05
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+save_strategy: steps
+load_best_model_at_end: false
+save_total_limit: 10
+### experiment
+report_to: wandb
+run_name: Games-grec-qwen2.5-3b-sft-qwen4B-4-256-dsz0
+
+### train
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 16
+learning_rate: 3.0e-4
+num_train_epochs: 10.0
+lr_scheduler_type: cosine
+
+warmup_steps: 20
+bf16: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+early_stopping_steps: 3
+metric_for_best_model: loss
+
+
+### eval
+eval_dataset: Games_grec_index_emb_qwen3_embedding_4B_rq4_cb256_256_256_256_dsGames_valid
+per_device_eval_batch_size: 32
+eval_strategy: steps
+eval_steps: 0.05
