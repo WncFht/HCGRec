@@ -4,6 +4,8 @@
 
 **Hint-Conditioned Generative Recommendation with Semantic IDs**
 
+[![arXiv](https://img.shields.io/badge/arXiv-2608.11980-b31b1b?logo=arxiv&logoColor=white)](https://arxiv.org/abs/2608.11980)
+
 </div>
 
 HCGRec is a research codebase for semantic-ID generative recommendation. The repository covers the full workflow used in the project: raw Amazon-style filtering, semantic ID construction, supervised fine-tuning with LLaMA-Factory, hint-conditioned GRPO training, and constrained-decoding evaluation.
