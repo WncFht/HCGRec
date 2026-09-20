@@ -1,3 +1,5 @@
+"""Datasets over precomputed item embeddings for RQ-VAE index training."""
+
 from bisect import bisect_right
 
 import numpy as np

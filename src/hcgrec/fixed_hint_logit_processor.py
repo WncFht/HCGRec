@@ -1,3 +1,5 @@
+"""Constrained logits processor for fixed-hint decoding: honor the hinted prefix, then stay on valid SIDs."""
+
 from collections.abc import Callable
 from typing import Any
 

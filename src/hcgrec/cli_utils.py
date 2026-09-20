@@ -1,3 +1,5 @@
+"""Shared CLI parsing helpers: boolean coercion and comma-separated task-name lists."""
+
 from typing import Any
 
 

@@ -1,3 +1,5 @@
+"""Extract item text embeddings with a pretrained language model (text2emb step)."""
+
 import argparse
 import os
 import random

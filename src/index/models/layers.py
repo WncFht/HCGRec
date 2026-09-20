@@ -1,3 +1,5 @@
+"""Neural-network building blocks for the RQ-VAE index model (MLP, kmeans, sinkhorn)."""
+
 import torch
 from sklearn.cluster import KMeans
 from torch import nn

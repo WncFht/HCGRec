@@ -1,3 +1,5 @@
+"""Shared helpers: main-process logging, rich config tables, and constrained logits-processor builders."""
+
 import logging
 import os
 import re

@@ -1,3 +1,5 @@
+"""Load the diagnosis hint-depth map and apply fixed SID-prefix hints to training examples."""
+
 from __future__ import annotations
 
 import json

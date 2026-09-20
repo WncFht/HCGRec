@@ -1,3 +1,5 @@
+"""Convert raw category data and a trained index into SFT/RL JSON datasets (task1..task5 builders)."""
+
 import json
 import os
 import random

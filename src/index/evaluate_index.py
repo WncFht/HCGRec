@@ -1,3 +1,5 @@
+"""Evaluate a trained index checkpoint: reconstruction and collision metrics."""
+
 import argparse
 import os
 

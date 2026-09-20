@@ -1,3 +1,5 @@
+"""Checkpoint save/load and top-k checkpoint management for index training."""
+
 import heapq
 import json
 import os

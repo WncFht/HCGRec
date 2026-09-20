@@ -1,3 +1,5 @@
+"""Ranking (NDCG-style) reward functions and reward wiring for RL training."""
+
 import math
 
 from hcgrec.util import _extract_number

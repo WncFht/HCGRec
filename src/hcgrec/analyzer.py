@@ -1,3 +1,5 @@
+"""Analyze tokenizer vocabulary coverage and token-category distribution for a checkpoint."""
+
 from __future__ import annotations
 
 import argparse

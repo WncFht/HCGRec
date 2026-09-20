@@ -1,3 +1,5 @@
+"""Constrained-decoding evaluation: score a checkpoint's top-k SID predictions on test data."""
+
 import json
 import math
 import os

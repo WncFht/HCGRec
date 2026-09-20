@@ -1,3 +1,5 @@
+"""Causal-LM subclass that patches generate() to beam-search, SID-constrained decoding for RL rollouts."""
+
 from typing import Any
 
 from transformers import AutoModelForCausalLM

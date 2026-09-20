@@ -1,3 +1,5 @@
+"""Index training entrypoint: data loading, model build, and the fit loop."""
+
 import argparse
 import logging
 import os

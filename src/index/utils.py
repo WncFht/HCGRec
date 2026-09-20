@@ -1,3 +1,5 @@
+"""Misc helpers for the index pipeline: IO, seeding, text cleanup, colored logging."""
+
 import datetime
 import html
 import json

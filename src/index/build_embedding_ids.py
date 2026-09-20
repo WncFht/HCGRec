@@ -1,3 +1,5 @@
+"""Build .ids.json token-id sequences for an existing item-embedding file."""
+
 import argparse
 import os
 

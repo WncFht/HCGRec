@@ -12,6 +12,10 @@ HCGRec is a research codebase for semantic-ID generative recommendation. The rep
 
 ## Overview
 
+<div align="center">
+  <img src="assets/hcgrec_main_figure.svg" alt="HCGRec overview" width="90%">
+</div>
+
 HCGRec focuses on a training failure mode in recommendation-oriented RL. In many rollout groups, none of the sampled continuations reaches the target item branch, so every sample receives the same reward and the update carries little or no useful learning signal. This repository adds hint-aware training on top of a standard SID-based generative recommendation stack.
 
 - Reachability diagnosis checks whether the current model can reach the target SID branch under the rollout budget.
@@ -96,7 +100,7 @@ MODEL_PATH=/path/to/sft_checkpoint \
 bash scripts/experiments/Instruments/rl_rule.sh
 ```
 
-Other RL variants live beside it, such as `rl_dynamic.sh`, `rl_fixed.sh`, `rl_fixed_ce.sh`, and `rl_ndcg.sh`.
+Other RL variants live beside it; see the [variant table](#rl-variant-scripts) below for what each script does.
 
 ### 5. Evaluate a checkpoint
 
@@ -295,13 +299,25 @@ MODEL_PATH=/path/to/sft_checkpoint \
 bash scripts/experiments/Instruments/rl_rule.sh
 ```
 
-Other wrappers expose different hinting or reward settings:
+#### RL variant scripts
 
-- `rl_dynamic.sh`
-- `rl_fixed.sh`
-- `rl_fixed_ce.sh`
-- `rl_fixed_full_sequence_sft.sh`
-- `rl_ndcg.sh`
+Each domain wrapper directory ships a subset of these RL launchers. They differ only in the flags they pass to `scripts/experiments/_canonical_rl_launcher.sh`:
+
+| Script                          | Hint mode                                       | Reward mode | Extra terms                                                    | Trainer class                       | Domains |
+| ------------------------------- | ----------------------------------------------- | ----------- | -------------------------------------------------------------- | ----------------------------------- | ------- |
+| `rl_rule.sh`                    | none                                            | `rule_only` | —                                                              | `trl.GRPOTrainer` (vanilla GRPO)    | all     |
+| `rl_fixed.sh`                   | fixed prefix, per-sample depth map              | `rule_only` | —                                                              | `FixedHintRuleOnlyGRPOTrainer`      | all     |
+| `rl_fixed_ce.sh`                | fixed prefix, per-sample depth map              | `rule_only` | prefix CE loss on hinted tokens (`HINT_CE_LOSS_COEF`, 0.005)   | `FixedHintRuleOnlyGRPOTrainer`      | all     |
+| `rl_fixed_ce_dual.sh`           | fixed prefix, per-sample depth map              | `rule_only` | prefix CE loss; trains on `task1_sid_sft` + `task5_title_desc2sid`, evaluates on `task1_sid_sft` | `FixedHintRuleOnlyGRPOTrainer` | Instruments only |
+| `rl_fixed_full_sequence_sft.sh` | fixed prefix, per-sample depth map              | `rule_only` | full-sequence SFT regularization (`FULL_SEQUENCE_SFT_LOSS_COEF`, 0.001) | `FixedHintRuleOnlyGRPOTrainer` | Instruments, Arts |
+| `rl_dynamic.sh`                 | dynamic per-rollout hints (`DYNAMIC_HINT_MAX_DEPTH`, 3) | `rule_only` | —                                                  | `DynamicHintRuleOnlyGRPOTrainer`    | Instruments, Arts |
+| `rl_ndcg.sh`                    | none                                            | `ranking`   | —                                                              | `trl.GRPOTrainer`                   | all     |
+
+Notes on how to read this:
+
+- **Fixed hint** means an offline reachability diagnosis runs before training: `hcgrec.analyze_rl_beam_hint` beam-searches the SFT model and exports a per-sample hint-depth map, which the trainer then uses to reveal a target-SID prefix on hard samples. Diagnosis artifacts are cached under `temp/rl_beam_hint/artifacts/`; set `FORCE_REANALYZE=true` to rebuild them.
+- **Dynamic hint** skips the offline pass and escalates the hint depth during rollout itself, up to `DYNAMIC_HINT_MAX_DEPTH`.
+- `hint_ce_loss_coef` and `full_sequence_sft_loss_coef` are mutually exclusive (enforced in `hcgrec.trl_trainer`).
 
 ### 7. Evaluation
 
@@ -332,6 +348,17 @@ For multi-checkpoint or watcher workflows, see:
 ### 8. Optional Ops Helpers
 
 `scripts/ops/` contains repo-local helpers for syncing results, uploader state, and evaluation maintenance. They are optional and not required for the main training pipeline.
+
+## Citation
+
+```bibtex
+@article{zhang2026hcgrec,
+  title   = {Learning from Unreachable Rewards: Hint-Conditioned Reinforcement Learning for Generative Recommendation},
+  author  = {Zhang, Kangning and Fang, Haotian and Luo, Xukun and Yin, Hao and Gao, Yang and Yan, Peng and Liu, Weiwen and Zhang, Weinan and Yu, Yong},
+  journal = {arXiv preprint arXiv:2608.11980},
+  year    = {2026}
+}
+```
 
 ## Acknowledgements
 

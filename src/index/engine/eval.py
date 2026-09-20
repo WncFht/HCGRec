@@ -1,3 +1,5 @@
+"""Evaluation engine for index checkpoints (reconstruction metrics over a data loader)."""
+
 import numpy as np
 import torch
 from tqdm import tqdm

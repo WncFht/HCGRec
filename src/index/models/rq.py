@@ -1,3 +1,5 @@
+"""Residual vector quantizer: stacked VQ levels that produce multi-level SIDs."""
+
 import torch
 from torch import nn
 

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""Beam-search reachability diagnosis: probe how deep the model reaches each target SID and export per-sample hint-depth maps."""
+
 from __future__ import annotations
 
 import argparse

@@ -1,3 +1,5 @@
+"""Main training loop for the RQ-VAE index model (distributed-aware)."""
+
 from time import time
 
 import numpy as np

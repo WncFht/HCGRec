@@ -1,3 +1,5 @@
+"""Trainer wrapper: optimizer, schedule, and fit loop for the index model."""
+
 import logging
 
 import numpy as np

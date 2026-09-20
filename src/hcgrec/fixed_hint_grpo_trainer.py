@@ -1,3 +1,5 @@
+"""Fixed-hint and dynamic-hint GRPO trainers that reveal target-SID prefixes for hard samples."""
+
 from __future__ import annotations
 
 import inspect

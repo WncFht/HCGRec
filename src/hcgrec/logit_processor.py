@@ -1,3 +1,5 @@
+"""Trie-based logits processor that constrains generation to valid semantic IDs."""
+
 from collections.abc import Callable
 from typing import Any
 

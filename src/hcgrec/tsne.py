@@ -1,3 +1,5 @@
+"""t-SNE/PCA visualization of token embeddings, colored by detected token category."""
+
 from __future__ import annotations
 
 import argparse

@@ -1,3 +1,5 @@
+"""Export per-item semantic IDs (index.json / id2sid.json) from a trained index checkpoint."""
+
 import argparse
 import collections
 import json
